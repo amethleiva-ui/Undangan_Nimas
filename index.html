@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Ulang Tahun - Nimas Sesya Giardin</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <style>
+        :root {
+            --neon-purple: #a855f7;
+            --neon-pink: #ec4899;
+            --neon-blue: #3b82f6;
+            --dark-bg: #0a0a0a;
+            --glass-bg: rgba(0, 0, 0, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* --- BACKGROUND SETTINGS (AS PER INSTRUCTION) --- */
+        .bg-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.ibb.co/rKFW3HBY/Whats-App-Video-2026-05-04-at-15-11-13-mp4-snapshot-00-01-082.jpg');
+            background-repeat: no-repeat;
+            background-position: center top; /* Fokus ke wajah */
+            background-size: contain; /* Agar wajah tidak terpotong */
+            background-color: black;
+            z-index: -2;
+        }
+
+        .overlay-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.4) 0%,
+                rgba(0,0,0,0.7) 50%,
+                var(--dark-bg) 100%
+            );
+            z-index: -1;
+        }
+
+        /* --- PARTICLES --- */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* --- LOADING SCREEN --- */
+        #cover {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .cover-content {
+            padding: 20px;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        .neon-text {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #fff;
+            text-shadow: 
+                0 0 7px var(--neon-purple),
+                0 0 10px var(--neon-purple),
+                0 0 21px var(--neon-purple);
+        }
+
+        .neon-pink-text {
+            color: #fff;
+            text-shadow: 
+                0 0 7px var(--neon-pink),
+                0 0 10px var(--neon-pink);
+        }
+
+        /* --- BUTTONS --- */
+        .btn-open {
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: transparent;
+            border: 2px solid var(--neon-purple);
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 15px var(--neon-purple);
+            text-transform: uppercase;
+        }
+
+        .btn-open:hover {
+            background: var(--neon-purple);
+            box-shadow: 0 0 30px var(--neon-purple);
+        }
+
+        /* --- MAIN CONTENT --- */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 50px;
+            text-align: center;
+        }
+
+        .hero-img {
+            width: 100%;
+            max-width: 420px;
+            height: 60vh;
+            object-fit: contain;
+            object-position: center top;
+            filter: drop-shadow(0 0 20px var(--neon-purple));
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* --- COUNTDOWN --- */
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .count-item {
+            background: rgba(168, 85, 247, 0.2);
+            padding: 15px 5px;
+            border-radius: 10px;
+            border: 1px solid var(--neon-purple);
+        }
+
+        .count-item span {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-family: 'Orbitron';
+        }
+
+        .count-item small {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        /* --- MAPS --- */
+        .maps-container {
+            width: 100%;
+            height: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 20px;
+            border: 2px solid var(--neon-purple);
+        }
+
+        /* --- RSVP FORM --- */
+        .form-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: var(--neon-purple);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--neon-purple);
+            border-radius: 8px;
+            color: white;
+            outline: none;
+        }
+
+        .btn-send {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* --- MUSIC BUTTON --- */
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--neon-purple);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 0 15px var(--neon-purple);
+        }
+
+        /* --- ANIMATIONS --- */
+        .fade-in { opacity: 0; transform: translateY(20px); transition: 1s all ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* Mobile specific adjustments */
+        @media (max-width: 480px) {
+            .neon-text { font-size: 1.2rem; }
+            .hero-img { height: 50vh; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Layers -->
+    <div class="bg-fixed"></div>
+    <div class="overlay-gradient"></div>
+    <div id="particles-js"></div>
+
+    <!-- Music Control -->
+    <div class="music-btn" onclick="toggleMusic()">
+        <i id="music-icon" class="fas fa-music"></i>
+    </div>
+    <audio id="bg-music" loop src="musik/toys.mp3"></audio>
+
+    <!-- Cover Page -->
+    <div id="cover">
+        <div class="bg-fixed"></div>
+        <div class="overlay-gradient" style="background: rgba(0,0,0,0.8)"></div>
+        <div class="cover-content animate__animated animate__fadeIn">
+            <h4 style="letter-spacing: 5px; margin-bottom: 10px;">BIRTHDAY INVITATION</h4>
+            <h1 class="neon-text" style="font-size: 2.5rem;">Nimas Sesya Giardin</h1>
+            <div style="margin-top: 40px;">
+                <p>Kepada Yth. Bapak/Ibu/Saudara/i</p>
+                <h2 id="guest-name" class="neon-pink-text" style="margin: 10px 0;">Tamu Undangan</h2>
+            </div>
+            <button class="btn-open" onclick="openInvitation()">Buka Undangan</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" style="display: none;">
+        <div class="container">
+            
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <img src="https://i.ibb.co/rKFW3HBY/Whats-App-Video-2026-05-04-at-15-11-13-mp4-snapshot-00-01-082.jpg" alt="Rumi" class="hero-img animate__animated animate__zoomIn">
+                <div class="fade-in">
+                    <h3 class="neon-pink-text">The Grand Celebration of</h3>
+                    <h1 class="neon-text" style="font-size: 2rem; margin: 10px 0;">RUMI DEMON HUNTER</h1>
+                    <p style="font-style: italic; font-size: 0.9rem;">"Joining forces to celebrate a legendary age"</p>
+                </div>
+            </section>
+
+            <!-- Event Details -->
+            <section class="card fade-in">
+                <h2 class="neon-text">WAKTU & TEMPAT</h2>
+                <hr style="border: 0.5px solid var(--neon-purple); margin: 20px 0; opacity: 0.5;">
+                
+                <div style="margin-bottom: 20px;">
+                    <i class="fas fa-calendar-day fa-2x" style="color: var(--neon-purple); margin-bottom: 10px;"></i>
+                    <h3>Minggu, 17 Mei 2026</h3>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <i class="fas fa-clock fa-2x" style="color: var(--neon-pink); margin-bottom: 10px;"></i>
+                    <p>15:00 WIB - Selesai</p>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <i class="fas fa-map-marker-alt fa-2x" style="color: var(--neon-blue); margin-bottom: 10px;"></i>
+                    <h3>Markas Besar Rumi</h3>
+                    <p>Jl. Cyber City No. 101, Jakarta Selatan</p>
+                </div>
+
+                <div class="maps-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126915.22851167993!2d106.7891557!3d-6.229728!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e945e34b9d%3A0x5371bf0fdad786a2!2sJakarta%20Selatan%2C%20Kota%20Jakarta%20Selatan%2C%20Daerah%20Khusus%20Ibukota%20Jakarta!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                
+                <button class="btn-send" style="margin-top: 20px;" onclick="window.open('https://maps.app.goo.gl/uXv7U')">
+                    Buka Google Maps
+                </button>
+            </section>
+
+            <!-- Countdown -->
+            <section class="card fade-in">
+                <h2 class="neon-text">COUNTDOWN</h2>
+                <div id="timer" class="countdown">
+                    <div class="count-item"><span id="days">00</span><small>Hari</small></div>
+                    <div class="count-item"><span id="hours">00</span><small>Jam</small></div>
+                    <div class="count-item"><span id="minutes">00</span><small>Menit</small></div>
+                    <div class="count-item"><span id="seconds">00</span><small>Detik</small></div>
+                </div>
+            </section>
+
+            <!-- RSVP -->
+            <section class="card fade-in">
+                <h2 class="neon-text">KONFIRMASI KEHADIRAN</h2>
+                <p style="font-size: 0.8rem; margin-bottom: 20px;">Berikan konfirmasi kehadiranmu untuk persiapan pertempuran kami.</p>
+                
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" id="rsvp-name" placeholder="Masukkan nama Anda">
+                </div>
+
+                <div class="form-group">
+                    <label>Kehadiran</label>
+                    <select id="rsvp-status">
+                        <option value="Hadir">Saya Akan Hadir</option>
+                        <option value="Tidak Hadir">Maaf, Tidak Bisa Hadir</option>
+                        <option value="Masih Ragu">Masih Ragu</option>
+                    </select>
+                </div>
+
+                <button class="btn-send" onclick="sendRSVP()">
+                    <i class="fab fa-whatsapp"></i> Kirim Konfirmasi
+                </button>
+            </section>
+
+            <!-- Share -->
+            <section class="card fade-in" style="margin-bottom: 100px;">
+                <h2 class="neon-text">BAGIKAN</h2>
+                <p>Bagikan kabar gembira ini kepada Temen temen lainnya!</p>
+                <button class="btn-send" style="background: #25d366;" onclick="shareWhatsApp()">
+                    <i class="fab fa-whatsapp"></i> Share Link Undangan
+                </button>
+            </section>
+
+            <footer style="text-align: center; padding-bottom: 40px; font-size: 0.8rem; opacity: 0.5;">
+                <p>&copy; 2026 Rumi Demon Hunter HQ. All Rights Reserved.</p>
+            </footer>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        // Setup Partikel
+        particlesJS('particles-js', {
+            "particles": {
+                "number": { "value": 80 },
+                "color": { "value": "#a855f7" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5 },
+                "size": { "value": 3 },
+                "move": { "speed": 2 }
+            },
+            "interactivity": {
+                "events": { "onhover": { "enable": true, "mode": "repulse" } }
+            }
+        });
+
+        // Ambil Nama Tamu dari URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const guestName = urlParams.get('to');
+        if (guestName) {
+            document.getElementById('guest-name').innerText = guestName;
+            document.getElementById('rsvp-name').value = guestName;
+        }
+
+        // Buka Undangan
+        function openInvitation() {
+            document.getElementById('cover').style.transform = 'translateY(-100%)';
+            document.getElementById('main-content').style.display = 'block';
+            toggleMusic(true);
+            
+            // Start scroll animation check
+            window.addEventListener('scroll', revealElements);
+            setTimeout(revealElements, 500);
+        }
+
+        // Music Logic
+        let isPlaying = false;
+        const music = document.getElementById('bg-music');
+        const musicIcon = document.getElementById('music-icon');
+
+      function toggleMusic(forcePlay = false) {
+    if (!isPlaying || forcePlay) {
+        music.volume = 0;
+
+        music.play().then(() => {
+            let vol = 0;
+            let fade = setInterval(() => {
+                if (vol < 0.5) {
+                    vol += 0.05;
+                    music.volume = vol;
+                } else {
+                    clearInterval(fade);
+                }
+            }, 200);
+        }).catch(() => {});
+
+        isPlaying = true;
+        musicIcon.classList.replace('fa-music', 'fa-pause');
+    } else {
+        music.pause();
+        isPlaying = false;
+        musicIcon.classList.replace('fa-pause', 'fa-music');
+    }
+}
+
+        // Countdown Logic
+        const targetDate = new Date("May 17, 2026 15:00:00").getTime();
+        setInterval(function() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = d < 10 ? '0' + d : d;
+            document.getElementById("hours").innerText = h < 10 ? '0' + h : h;
+            document.getElementById("minutes").innerText = m < 10 ? '0' + m : m;
+            document.getElementById("seconds").innerText = s < 10 ? '0' + s : s;
+        }, 1000);
+
+        // Scroll Reveal
+        function revealElements() {
+            const reveals = document.querySelectorAll('.fade-in');
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('visible');
+                }
+            }
+        }
+
+        // RSVP WhatsApp
+        function sendRSVP() {
+            const name = document.getElementById('rsvp-name').value;
+            const status = document.getElementById('rsvp-status').value;
+            const msg = `Halo! Saya ${name}. Ingin memberikan konfirmasi: ${status} di acara ulang tahun Nimas Sesya Giardin (RUMI DEMON HUNTER). Terima kasih!`;
+            const phone = "6281234567890"; // Ganti dengan nomor asli
+            window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(msg)}`);
+        }
+
+        // Share WhatsApp
+        function shareWhatsApp() {
+    const currentTo = guestName ? guestName : "Bapak/Ibu/Saudara/i";
+
+    const msg = `Assalamu’alaikum Wr. Wb. 🙏
+
+Kepada Yth. ${currentTo},
+
+Dengan penuh kebahagiaan, kami mengundang Anda untuk hadir dalam acara ulang tahun:
+
+✨ NIMAS SESYA GIARDIN ✨
+
+Silakan membuka undangan melalui link berikut:
+${window.location.href}
+
+Merupakan suatu kehormatan bagi kami apabila Anda berkenan hadir.
+
+Terima kasih 🙏
+Wassalamu’alaikum Wr. Wb.`;
+
+    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`);
+}
+    </script>
+</body>
+</html>
