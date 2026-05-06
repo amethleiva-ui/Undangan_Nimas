@@ -438,28 +438,21 @@
         const music = document.getElementById('bg-music');
         const musicIcon = document.getElementById('music-icon');
 
-      function toggleMusic(forcePlay = false) {
-    if (!isPlaying || forcePlay) {
-        music.volume = 0;
+     function toggleMusic(forcePlay = false) {
+    const music = document.getElementById('bg-music');
+    const icon = document.getElementById('music-icon');
 
+    if (!music) return;
+
+    if (music.paused || forcePlay) {
         music.play().then(() => {
-            let vol = 0;
-            let fade = setInterval(() => {
-                if (vol < 0.5) {
-                    vol += 0.05;
-                    music.volume = vol;
-                } else {
-                    clearInterval(fade);
-                }
-            }, 200);
-        }).catch(() => {});
-
-        isPlaying = true;
-        musicIcon.classList.replace('fa-music', 'fa-pause');
+            icon.classList.replace('fa-music', 'fa-pause');
+        }).catch(err => {
+            console.log("Gagal play:", err);
+        });
     } else {
         music.pause();
-        isPlaying = false;
-        musicIcon.classList.replace('fa-pause', 'fa-music');
+        icon.classList.replace('fa-pause', 'fa-music');
     }
 }
 
